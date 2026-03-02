@@ -82,7 +82,7 @@ export class Login extends Component {
         const { email, password } = this.state;
         const loginData = { email, password };
 
-        axios.post(`${API_BASE_URL}/work_ledger/login_api.php`, loginData)
+        axios.post(`${API_BASE_URL}/work_ledgerr/login_api.php`, loginData)
             .then(response => {
                 console.log(response.data);
 

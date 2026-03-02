@@ -56,7 +56,7 @@ export class Users extends Component {
 
         if (isEdit) {
             axios
-                .put(`${API_BASE_URL}/work_ledger/users.php`, {
+                .put(`${API_BASE_URL}/work_ledgerr/users.php`, {
                     user_id,
                     user_name,
                     user_email,
@@ -90,7 +90,7 @@ export class Users extends Component {
                 });
 
         } else {
-            axios.post(`${API_BASE_URL}/work_ledger/users.php`, {
+            axios.post(`${API_BASE_URL}/work_ledgerr/users.php`, {
                 user_name,
                 user_email,
                 user_number,
@@ -196,7 +196,7 @@ export class Users extends Component {
     }
 
     fetchUsers = () => {
-        axios.get(`${API_BASE_URL}/work_ledger/users.php?type=users`)
+        axios.get(`${API_BASE_URL}/work_ledgerr/users.php?type=users`)
             .then(response => {
                 this.setState({
                     users: response.data,
@@ -244,7 +244,7 @@ export class Users extends Component {
         });
     };
     handleDelete = (id) => {
-        axios.delete(`${API_BASE_URL}/work_ledger/users.php`, {
+        axios.delete(`${API_BASE_URL}/work_ledgerr/users.php`, {
             data: { user_id: id }
         })
             .then(() => {

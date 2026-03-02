@@ -87,7 +87,7 @@ class Projects extends Component {
     //     });
     // };
     fetchProjects = () => {
-        axios.get(`${API_BASE_URL}/work_ledger/projects.php?list=1`)
+        axios.get(`${API_BASE_URL}/work_ledgerr/projects.php?list=1`)
             .then(res => {
                 this.setState({
                     projects: res.data,
@@ -253,7 +253,7 @@ class Projects extends Component {
         this.setState({ [name]: value });
         if (value.length >= 1) {
             axios
-                .get(`${API_BASE_URL}/work_ledger/projects.php?term=${value}`)
+                .get(`${API_BASE_URL}/work_ledgerr/projects.php?term=${value}`)
                 .then(res => {
                     if (Array.isArray(res.data)) {
                         this.setState({ suggestions: res.data });
@@ -293,7 +293,7 @@ class Projects extends Component {
             project.status === 'completed' ? 'pending' : 'completed';
 
         axios.put(
-            `${API_BASE_URL}/work_ledger/projects.php?status=1`,
+            `${API_BASE_URL}/work_ledgerr/projects.php?status=1`,
             {
                 project_id: project.project_id,
                 status: newStatus
@@ -358,7 +358,7 @@ class Projects extends Component {
             payload.project_id = this.state.editingProjectId;
 
 
-            axios.put(`${API_BASE_URL}/work_ledger/projects.php`, payload)
+            axios.put(`${API_BASE_URL}/work_ledgerr/projects.php`, payload)
                 .then(res => {
                     this.fetchProjects();
                     this.setState({
@@ -391,7 +391,7 @@ class Projects extends Component {
         }
 
         else {
-            axios.post(`${API_BASE_URL}/work_ledger/projects.php`, payload)
+            axios.post(`${API_BASE_URL}/work_ledgerr/projects.php`, payload)
                 .then(res => {
                     this.fetchProjects();
                     this.setState({
@@ -466,7 +466,7 @@ class Projects extends Component {
     handleDelete = (project_id) => {
         // if (!window.confirm("Are you sure you want to delete this project?")) return;
 
-        axios.delete(`${API_BASE_URL}/work_ledger/projects.php`, {
+        axios.delete(`${API_BASE_URL}/work_ledgerr/projects.php`, {
             data: { project_id },
 
         }).then(res => {

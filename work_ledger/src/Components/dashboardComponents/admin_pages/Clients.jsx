@@ -59,7 +59,7 @@ export class Clients extends Component {
 
         if (isEdit) {
 
-            axios.put(`${API_BASE_URL}/work_ledger/clients.php`, {
+            axios.put(`${API_BASE_URL}/work_ledgerr/clients.php`, {
                 client_id,
                 client_name,
                 client_email,
@@ -95,7 +95,7 @@ export class Clients extends Component {
 
         } else {
 
-            axios.post(`${API_BASE_URL}/work_ledger/clients.php`, {
+            axios.post(`${API_BASE_URL}/work_ledgerr/clients.php`, {
                 client_name,
                 client_email,
                 company_details,
@@ -213,7 +213,7 @@ export class Clients extends Component {
         this.fetchClients();
     }
     fetchClients = () => {
-        axios.get(`${API_BASE_URL}/work_ledger/clients.php`)
+        axios.get(`${API_BASE_URL}/work_ledgerr/clients.php`)
             .then(response => {
                 // console.log("GET response:", response.data);
                 this.setState({
@@ -272,7 +272,7 @@ export class Clients extends Component {
     }
     handleDelete = (id) => {
         axios
-            .delete(`${API_BASE_URL}/work_ledger/clients.php`, {
+            .delete(`${API_BASE_URL}/work_ledgerr/clients.php`, {
                 data: { client_id: id }
             })
             .then(response => {

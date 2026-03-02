@@ -109,7 +109,7 @@ export class Task extends Component {
 
         if (value.length >= 1) {
             axios.get(
-                `${API_BASE_URL}/work_ledger/tasks.php?project_term=${value}`
+                `${API_BASE_URL}/work_ledgerr/tasks.php?project_term=${value}`
             )
                 .then(res => {
                     this.setState({
@@ -140,7 +140,7 @@ export class Task extends Component {
         }));
 
         if (value.length >= 1) {
-            axios.get(`${API_BASE_URL}/work_ledger/tasks.php?terms=${value}`)
+            axios.get(`${API_BASE_URL}/work_ledgerr/tasks.php?terms=${value}`)
                 .then(res => {
                     const selectedIds = this.state.rows
                         .map(r => r.team_member.id)
@@ -268,7 +268,7 @@ export class Task extends Component {
     };
 
     fetchTasks = () => {
-        axios.get(`${API_BASE_URL}/work_ledger/tasks.php?list=1`)
+        axios.get(`${API_BASE_URL}/work_ledgerr/tasks.php?list=1`)
             .then(res => {
                 console.log(res.data);
 
@@ -376,7 +376,7 @@ export class Task extends Component {
             payload.task_id = this.state.editingTasksId;
 
 
-            axios.put(`${API_BASE_URL}/work_ledger/tasks.php`, payload)
+            axios.put(`${API_BASE_URL}/work_ledgerr/tasks.php`, payload)
                 .then(res => {
                     this.fetchTasks();
                     this.setState({
@@ -411,7 +411,7 @@ export class Task extends Component {
         }
 
         else {
-            axios.post(`${API_BASE_URL}/work_ledger/tasks.php`, payload)
+            axios.post(`${API_BASE_URL}/work_ledgerr/tasks.php`, payload)
                 .then(res => {
                     // console.log(res.data);
                     this.fetchTasks();
@@ -504,7 +504,7 @@ export class Task extends Component {
     }
     handleDelete = (task_id) => {
 
-        axios.delete(`${API_BASE_URL}/work_ledger/tasks.php`, {
+        axios.delete(`${API_BASE_URL}/work_ledgerr/tasks.php`, {
             data: { task_id },
 
         }).then(res => {

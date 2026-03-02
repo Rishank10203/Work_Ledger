@@ -90,7 +90,7 @@ export class TimeTracking extends Component {
         }));
 
         if (value.length >= 1) {
-            axios.get(`${API_BASE_URL}/work_ledger/time_track.php?terms=${value}`)
+            axios.get(`${API_BASE_URL}/work_ledgerr/time_track.php?terms=${value}`)
                 .then(res => {
                     // console.log(res.data);
 
@@ -221,7 +221,7 @@ export class TimeTracking extends Component {
             // console.log(this.state.editingTaskId);
 
             payload.timer_id = this.state.editingTaskId;
-            axios.put(`${API_BASE_URL}/work_ledger/time_track.php`, payload)
+            axios.put(`${API_BASE_URL}/work_ledgerr/time_track.php`, payload)
                 .then(res => {
                     console.log(res.data);
                     this.fetchTasks();
@@ -259,7 +259,7 @@ export class TimeTracking extends Component {
         }
 
         else {
-            axios.post(`${API_BASE_URL}/work_ledger/time_track.php`, payload)
+            axios.post(`${API_BASE_URL}/work_ledgerr/time_track.php`, payload)
                 .then(res => {
                     // console.log(res.data);
                     this.fetchTasks();
@@ -439,7 +439,7 @@ export class TimeTracking extends Component {
     };
 
     fetchTasks = () => {
-        axios.get(`${API_BASE_URL}/work_ledger/time_track.php?list=1`)
+        axios.get(`${API_BASE_URL}/work_ledgerr/time_track.php?list=1`)
             .then(res => {
                 // console.log(res.data);
 
@@ -471,7 +471,7 @@ export class TimeTracking extends Component {
 
     handleDelete = (timer_id) => {
 
-        axios.delete(`${API_BASE_URL}/work_ledger/time_track.php`, {
+        axios.delete(`${API_BASE_URL}/work_ledgerr/time_track.php`, {
             data: { timer_id },
 
         }).then(res => {

@@ -317,7 +317,7 @@ export default class KanbanBoard extends Component {
 
     fetchProjects = () => {
         axios
-            .get(`${API_BASE_URL}/work_ledger/kanbanBoard.php?projects=1`)
+            .get(`${API_BASE_URL}/work_ledgerr/kanbanBoard.php?projects=1`)
             .then(res => {
                 const projects = Array.isArray(res.data) ? res.data : [];
 
@@ -348,7 +348,7 @@ export default class KanbanBoard extends Component {
     fetchTasks = projectId => {
         axios
             .get(
-                `${API_BASE_URL}/work_ledger/kanbanBoard.php?list=1&project_id=${projectId}`
+                `${API_BASE_URL}/work_ledgerr/kanbanBoard.php?list=1&project_id=${projectId}`
             )
             .then(res => {
                 const data = Array.isArray(res.data) ? res.data : [];
@@ -405,7 +405,7 @@ export default class KanbanBoard extends Component {
         const finish = this.state.columns[destination.droppableId];
         if (start === finish) return;
 
-        axios.put(`${API_BASE_URL}/work_ledger/kanbanBoard.php`, {
+        axios.put(`${API_BASE_URL}/work_ledgerr/kanbanBoard.php`, {
             task_id: draggableId,
             status: finish.id
         });
@@ -444,7 +444,7 @@ export default class KanbanBoard extends Component {
             formData.append('file', this.state.file);
         }
         axios
-            .post(`${API_BASE_URL}/work_ledger/kanbanBoard.php`,
+            .post(`${API_BASE_URL}/work_ledgerr/kanbanBoard.php`,
                 formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -482,7 +482,7 @@ export default class KanbanBoard extends Component {
     }
     deleteNote = (id) => {
         axios
-            .delete(`${API_BASE_URL}/work_ledger/kanbanBoard.php`, {
+            .delete(`${API_BASE_URL}/work_ledgerr/kanbanBoard.php`, {
                 data: { id }
             })
             .then(() => {
@@ -501,7 +501,7 @@ export default class KanbanBoard extends Component {
             note.completed === 'completed' ? 'pending' : 'completed';
 
         axios.put(
-            `${API_BASE_URL}/work_ledger/kanbanBoard.php?note_status=1`,
+            `${API_BASE_URL}/work_ledgerr/kanbanBoard.php?note_status=1`,
             {
                 id: noteId,
                 status: newStatus
