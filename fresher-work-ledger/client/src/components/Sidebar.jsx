@@ -1,11 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '../store/authStore';
-import { LayoutDashboard, Users, FolderKanban, Clock, Settings, Briefcase } from 'lucide-react';
+import { useUIStore } from '../store/uiStore';
+import { LayoutDashboard, Users, FolderKanban, Clock, Settings, Briefcase, X } from 'lucide-react';
 
 export const Sidebar = () => {
   const { user } = useAuthStore();
+  const { isSidebarOpen, closeSidebar } = useUIStore();
 
   const getLinks = () => {
     switch (user?.role) {
@@ -37,22 +39,40 @@ export const Sidebar = () => {
   const navLinks = getLinks();
 
   return (
-    <aside className="w-72 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 md:flex flex-col hidden transition-all duration-500 shadow-[20px_0_50px_-30px_rgba(0,0,0,0.05)] z-20">
-      <div className="h-24 flex items-center px-8 shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 bg-gradient-to-br from-primary-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/20">
-            <FolderKanban className="h-6 w-6 text-white" />
+    <>
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 md:hidden"
+            onClick={closeSidebar}
+          />
+        )}
+      </AnimatePresence>
+
+      <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col transition-transform duration-300 md:relative md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} shadow-[20px_0_50px_-30px_rgba(0,0,0,0.05)]`}>
+        <div className="h-24 flex items-center justify-between px-8 shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 bg-gradient-to-br from-primary-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/20">
+              <FolderKanban className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-2xl font-black bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent tracking-tighter">
+              Work Ledger
+            </span>
           </div>
-          <span className="text-2xl font-black bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent tracking-tighter">
-            Work Ledger
-          </span>
+          <button onClick={closeSidebar} className="md:hidden p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg">
+            <X size={20} />
+          </button>
         </div>
-      </div>
       <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
         {navLinks.map((item) => (
-          <NavLink
-            key={item.name}
-            to={item.to}
+            <NavLink
+              onClick={() => closeSidebar()}
+              key={item.name}
+              to={item.to}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all duration-300 relative group ${
                 isActive
@@ -87,6 +107,7 @@ export const Sidebar = () => {
           </div>
         </div>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 };

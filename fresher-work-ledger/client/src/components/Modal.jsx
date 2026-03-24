@@ -32,9 +32,9 @@ export const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-md' 
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className={`relative w-full ${maxWidth} bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden`}
+            className={`relative w-full ${maxWidth} bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 flex flex-col max-h-[95vh]`}
           >
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 shrink-0 rounded-t-2xl">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white font-heading">{title}</h3>
               <button
                 onClick={onClose}
@@ -43,7 +43,7 @@ export const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-md' 
                 <X size={20} />
               </button>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6 overflow-y-auto">
               {children}
             </div>
           </motion.div>

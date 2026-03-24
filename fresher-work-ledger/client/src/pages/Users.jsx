@@ -150,11 +150,11 @@ export const Users = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50/50 dark:bg-gray-800/40 border-b border-gray-100 dark:border-gray-800">
-                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Member Profile</th>
-                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center">Designation</th>
-                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Client Attachment</th>
-                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Onboarding</th>
-                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Actions</th>
+                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] whitespace-nowrap">Member Profile</th>
+                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center whitespace-nowrap">Designation</th>
+                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] whitespace-nowrap">Client Attachment</th>
+                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] whitespace-nowrap">Onboarding</th>
+                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right whitespace-nowrap">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
@@ -162,7 +162,7 @@ export const Users = () => {
                 <tr><td colSpan="5" className="px-6 py-12 text-center text-gray-400 text-sm animate-pulse">Synchronizing team data...</td></tr>
               ) : filteredUsers.map((user) => (
                 <tr key={user._id} className="hover:bg-gray-50/50 dark:hover:bg-gray-700/20 transition-all group">
-                  <td className="px-6 py-5">
+                  <td className="px-6 py-5 whitespace-nowrap">
                     <div className="flex items-center gap-4">
                       <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-black text-xl shadow-lg border-2 border-primary-500 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                         {user.name.charAt(0).toUpperCase()}
@@ -176,7 +176,7 @@ export const Users = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-5">
+                  <td className="px-6 py-5 whitespace-nowrap">
                     <div className="flex items-center justify-center">
                       <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border-2 font-black text-[10px] uppercase tracking-widest ${
                         user.role === 'admin' ? 'bg-rose-50 border-rose-100 text-rose-600' :
@@ -187,7 +187,7 @@ export const Users = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-5">
+                  <td className="px-6 py-5 whitespace-nowrap">
                     {user.clientId ? (
                       <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300 font-bold bg-gray-50 dark:bg-gray-800 p-2 rounded-xl border border-gray-100 dark:border-gray-700 w-fit">
                         <Building2 size={14} className="text-primary-500" />
@@ -197,10 +197,10 @@ export const Users = () => {
                       <span className="text-[10px] text-gray-300 font-black uppercase tracking-tighter">Internal Personnel</span>
                     )}
                   </td>
-                  <td className="px-6 py-5 text-[11px] font-black text-gray-500 dark:text-gray-400 font-mono">
+                  <td className="px-6 py-5 text-[11px] font-black text-gray-500 dark:text-gray-400 font-mono whitespace-nowrap">
                     {new Date(user.createdAt).toLocaleDateString().replace(/\//g, ' . ')}
                   </td>
-                  <td className="px-6 py-5">
+                  <td className="px-6 py-5 whitespace-nowrap">
                     <div className="flex items-center justify-end gap-2.5">
                       <button onClick={() => handleOpenModal(user)} className="p-2.5 text-gray-400 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/40 rounded-xl transition-all hover:shadow-lg active:scale-90">
                         <Edit2 size={18} />

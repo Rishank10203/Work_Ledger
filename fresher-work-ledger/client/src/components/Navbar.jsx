@@ -1,15 +1,17 @@
 import React from 'react';
 import { useAuthStore } from '../store/authStore';
+import { useUIStore } from '../store/uiStore';
 import { LogOut, Menu, Bell } from 'lucide-react';
 import { Button } from './Button';
 
 export const Navbar = () => {
   const { logout } = useAuthStore();
+  const { toggleSidebar } = useUIStore();
 
   return (
     <header className="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 sm:px-6 transition-colors shadow-sm z-10 shrink-0">
       <div className="flex items-center gap-4">
-        <button className="md:hidden p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+        <button onClick={toggleSidebar} className="md:hidden p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
           <Menu className="h-6 w-6" />
         </button>
       </div>

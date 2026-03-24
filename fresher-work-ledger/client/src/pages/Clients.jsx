@@ -119,10 +119,10 @@ export const Clients = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50/50 dark:bg-gray-800/40 border-b border-gray-100 dark:border-gray-800">
-                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Client / Company</th>
-                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Contact Info</th>
-                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center">Status</th>
-                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Actions</th>
+                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] whitespace-nowrap">Client / Company</th>
+                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] whitespace-nowrap">Contact Info</th>
+                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center whitespace-nowrap">Status</th>
+                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right whitespace-nowrap">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
@@ -137,7 +137,7 @@ export const Clients = () => {
               ) : (
                 Array.isArray(clients) && clients.map((client) => (
                   <tr key={client._id} className="hover:bg-gray-50/50 dark:hover:bg-gray-700/20 transition-all group">
-                    <td className="px-6 py-5">
+                    <td className="px-6 py-5 whitespace-nowrap">
                       <div className="flex items-center gap-4">
                         <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/40 dark:to-primary-800/20 flex items-center justify-center text-primary-600 dark:text-primary-400 shadow-sm border border-primary-100/50 dark:border-primary-800/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                           <Building2 size={22} strokeWidth={2.5} />
@@ -150,7 +150,7 @@ export const Clients = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-5">
+                    <td className="px-6 py-5 whitespace-nowrap">
                       <div className="flex flex-col gap-1.5">
                         <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300 font-bold">
                           <div className="p-1 bg-gray-100 dark:bg-gray-800 rounded-md"><Mail size={12} className="text-primary-500" /></div>
@@ -164,7 +164,7 @@ export const Clients = () => {
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-5">
+                    <td className="px-6 py-5 whitespace-nowrap">
                       <div className="flex items-center justify-center">
                         <div className="flex items-center gap-2 px-3 py-1 bg-emerald-50 dark:bg-emerald-900/20 rounded-full border border-emerald-100 dark:border-emerald-800/50">
                           <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -172,7 +172,7 @@ export const Clients = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-5">
+                    <td className="px-6 py-5 whitespace-nowrap">
                       <div className="flex items-center justify-end gap-2.5">
                         <button 
                           onClick={() => handleOpenModal(client)}

@@ -374,14 +374,14 @@ export const Tasks = () => {
       ) : (
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex-1 flex gap-8 overflow-x-auto pb-8 -mx-2 px-2 min-h-[600px] scrollbar-hide">
+        <div className="flex-1 flex gap-6 sm:gap-8 overflow-x-auto pb-8 -mx-4 px-4 sm:-mx-2 sm:px-2 min-h-[600px] scrollbar-hide snap-x snap-mandatory">
           {COLUMNS.map(column => {
             const columnTasks = Array.isArray(tasks) 
               ? tasks.filter(t => t.status === column.id).sort((a, b) => (a.order || 0) - (b.order || 0))
               : [];
             
             return (
-              <div key={column.id} className="w-80 shrink-0 flex flex-col gap-6">
+              <div key={column.id} className="w-[85vw] sm:w-80 shrink-0 flex flex-col gap-6 snap-center">
                 <div className="flex items-center justify-between px-3">
                   <div className="flex items-center gap-3">
                     <div className={`p-2 rounded-[1rem] ${column.bg} border ${column.border} shadow-sm transition-all`}>
