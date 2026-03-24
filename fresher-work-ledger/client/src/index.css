@@ -1,0 +1,55 @@
+@import 'react-phone-input-2/lib/style.css';
+
+/* Base styles */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #f8fafc;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 15, 118, 110;
+  --primary-foreground: 255, 255, 255;
+}
+
+/* Custom Phone Input Styling */
+.react-tel-input .form-control {
+  @apply !w-full !h-auto !py-3 !pl-14 !rounded-2xl !border-gray-200 dark:!border-gray-700 !bg-white dark:!bg-gray-800 !text-sm focus:!ring-4 focus:!ring-primary-500/10 focus:!border-primary-500 !transition-all !text-gray-900 dark:!text-white;
+}
+
+.react-tel-input .flag-dropdown {
+  @apply !bg-transparent !border-none !rounded-l-2xl !pl-2;
+}
+
+.react-tel-input .selected-flag {
+  @apply !bg-transparent hover:!bg-gray-50 dark:hover:!bg-gray-700/50 !rounded-l-2xl;
+}
+
+.react-tel-input .country-list {
+  @apply !bg-white dark:!bg-gray-800 !border-gray-200 dark:!border-gray-700 !rounded-xl !shadow-2xl !text-sm;
+}
+
+.react-tel-input .country-list .country:hover {
+  @apply !bg-gray-50 dark:!bg-gray-700/50;
+}
+
+.react-tel-input .country-list .country.highlight {
+  @apply !bg-primary-50 dark:!bg-primary-900/40;
+}
+
+/* Fallback classes if Tailwind CDN fails for some reason */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

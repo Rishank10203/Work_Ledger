@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: work_ledger_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+  server:
+    build: ./server
+    container_name: work_ledger_server
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/work_ledger
+      - JWT_SECRET=your_super_secret_jwt_key
+      - JWT_REFRESH_SECRET=your_super_secret_refresh_key
+    depends_on:
+      - mongodb
+    restart: always
+
+  client:
+    build: ./client
+    container_name: work_ledger_client
+    ports:
+      - "5173:80"
+    depends_on:
+      - server
+    restart: always
+
+volumes:
+  mongo_data:
