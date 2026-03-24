@@ -41,9 +41,11 @@ export const getTasks = async (req, res) => {
       projectId: new mongoose.Types.ObjectId(projectId)
     };
 
-    if (req.user.role === 'user') {
+    const role = req.user.role?.toLowerCase();
+
+    if (role === 'user' || role === 'team member') {
       matchFilter.assignedUser = req.user._id;
-    } else if (req.user.role === 'client') {
+    } else if (role === 'client') {
       // Security: Ensure the project belongs to the client
       const project = await mongoose.model('Project').findById(projectId);
       if (!project || project.clientId?.toString() !== req.user.clientId?.toString()) {
@@ -93,7 +95,7 @@ export const getTasks = async (req, res) => {
 
 export const createTask = async (req, res) => {
   try {
-    if (req.user.role !== 'admin') {
+    if (req.user.role?.toLowerCase() !== 'admin') {
       return res.status(403).json({ message: 'Only Admin can create tasks.' });
     }
     const { title, projectId } = req.body;
@@ -137,7 +139,8 @@ export const updateTask = async (req, res) => {
     if (!task) return res.status(404).json({ message: 'Task not found' });
 
     // RBAC: Non-admins can only toggle status and reorder tasks via drag-drop
-    if (req.user.role !== 'admin') {
+    const role = req.user.role?.toLowerCase();
+    if (role !== 'admin') {
       const allowedKeys = ['status', 'order'];
       const requestedKeys = Object.keys(req.body);
       const isOnlyStatus = requestedKeys.every(key => allowedKeys.includes(key));
@@ -146,7 +149,7 @@ export const updateTask = async (req, res) => {
         return res.status(403).json({ message: 'Authorization Failure: Only Admin can edit task parameters.' });
       }
       
-      if (req.user.role === 'user' && task.assignedUser?.toString() !== req.user._id.toString()) {
+      if (role === 'user' || role === 'team member' && task.assignedUser?.toString() !== req.user._id.toString()) {
         return res.status(403).json({ message: 'Security Breach: Not authorized to update this task.' });
       }
     }
@@ -166,7 +169,7 @@ export const updateTask = async (req, res) => {
 
 export const deleteTask = async (req, res) => {
   try {
-    if (req.user.role !== 'admin') {
+    if (req.user.role?.toLowerCase() !== 'admin') {
       return res.status(403).json({ message: 'Operational Block: Only Admin can delete tasks.' });
     }
     const task = await Task.findByIdAndDelete(req.params.id);

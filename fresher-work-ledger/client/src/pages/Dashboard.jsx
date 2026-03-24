@@ -59,15 +59,15 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard title="Active Projects" value={stats.projects} icon={FolderKanban} colorClass="bg-blue-500 text-white shadow-lg shadow-blue-500/20" />
         <StatCard title="Tasks Pending" value={stats.tasks} icon={Briefcase} colorClass="bg-orange-500 text-white shadow-lg shadow-orange-500/20" />
         <StatCard title="Hours (7d)" value={`${stats.totalHours || 0}h`} icon={Clock} colorClass="bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" />
         <StatCard title="Team Members" value={stats.teamMembers || 0} icon={Users} colorClass="bg-violet-500 text-white shadow-lg shadow-violet-500/20" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card animate className="lg:col-span-2 !p-8 border-none shadow-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        <Card animate className="xl:col-span-2 !p-8 border-none shadow-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
           <div className="flex items-center justify-between mb-8">
             <div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">Productivity Trends</h3>

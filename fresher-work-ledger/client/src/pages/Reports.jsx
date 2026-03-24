@@ -106,7 +106,7 @@ export const Reports = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         <Card animate className="border-t-4 border-t-primary-500 shadow-md">
           <div className="flex justify-between items-start mb-4">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white">Monthly User Timesheet</h3>

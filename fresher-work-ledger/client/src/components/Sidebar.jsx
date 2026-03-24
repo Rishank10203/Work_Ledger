@@ -10,7 +10,8 @@ export const Sidebar = () => {
   const { isSidebarOpen, closeSidebar } = useUIStore();
 
   const getLinks = () => {
-    switch (user?.role) {
+    const role = user?.role?.toLowerCase();
+    switch (role) {
       case 'admin':
         return [
           { name: 'Dashboard', to: '/', icon: LayoutDashboard },
@@ -26,12 +27,16 @@ export const Sidebar = () => {
           { name: 'Projects', to: '/projects', icon: FolderKanban },
           { name: 'Tasks', to: '/tasks', icon: Briefcase },
         ];
-      default:
-        // user
+      case 'user':
+      case 'team member':
         return [
           { name: 'Dashboard', to: '/', icon: LayoutDashboard },
           { name: 'Tasks', to: '/tasks', icon: Briefcase },
           { name: 'Time Track', to: '/time', icon: Clock },
+        ];
+      default:
+        return [
+          { name: 'Dashboard', to: '/', icon: LayoutDashboard },
         ];
     }
   };

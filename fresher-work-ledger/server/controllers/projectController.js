@@ -9,21 +9,21 @@ export const getProjects = async (req, res) => {
   try {
     if (mongoose.connection.readyState !== 1) throw new Error('DB Disconnected');
     let filter = {};
-    if (req.user.role === 'Client') {
+    const role = req.user.role?.toLowerCase();
+
+    if (role === 'client') {
       filter = { clientId: req.user.clientId };
-    } else if (req.user.role === 'Team Member') {
+    } else if (role === 'team member' || role === 'user') {
       filter = { users: req.user._id };
     }
+    
     const projects = await Project.find(filter)
       .populate('clientId', 'name company')
       .populate('users', 'name email');
     res.json(projects);
   } catch (error) {
-    console.warn('Projects Fallback (DB Offline):', error.message);
-    res.json([
-      { _id: 'p1', name: 'Website Redesign', status: 'In Progress', progress: 65, client: { name: 'Acme Corp' } },
-      { _id: 'p2', name: 'Mobile App', status: 'Planning', progress: 10, client: { name: 'TechStart' } }
-    ]);
+    console.warn('Projects Error:', error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 

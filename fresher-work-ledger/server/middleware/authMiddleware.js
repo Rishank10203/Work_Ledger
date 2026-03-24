@@ -42,7 +42,8 @@ export const protect = async (req, res, next) => {
 
 export const authorize = (...roles) => {
   return (req, res, next) => {
-    if (!req.user || !roles.includes(req.user.role)) {
+    const userRole = req.user?.role?.toLowerCase();
+    if (!req.user || !roles.map(r => r.toLowerCase()).includes(userRole)) {
       return res.status(403).json({ message: 'Access Denied: Role not authorized' });
     }
     next();
