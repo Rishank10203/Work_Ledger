@@ -1,5 +1,4 @@
 import User from '../models/User.js';
-import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
 const generateToken = (id) => {
@@ -9,12 +8,9 @@ const generateToken = (id) => {
 };
 
 // @desc    Auth user & get token
-// @route   POST /api/users/login
-// @access  Public
 export const authUser = async (req, res) => {
-  const { email, password } = req.body;
-
   try {
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
 
     if (user && (await user.comparePassword(password))) {
@@ -23,7 +19,6 @@ export const authUser = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        clientId: user.clientId,
         token: generateToken(user._id),
       });
     } else {
@@ -34,57 +29,36 @@ export const authUser = async (req, res) => {
   }
 };
 
-// @desc    Register a new user
-// @route   POST /api/users
-// @access  Public
+// @desc    Register user
 export const registerUser = async (req, res) => {
-  const { name, email, password, role, clientId } = req.body;
-
   try {
+    const { name, email, password, role } = req.body;
     const userExists = await User.findOne({ email });
+    if (userExists) return res.status(400).json({ message: 'User already exists' });
 
-    if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
-
-    const user = await User.create({
-      name,
-      password,
-      role: role || 'user',
-      clientId
+    const user = await User.create({ name, email, password, role });
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token: generateToken(user._id),
     });
-
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        clientId: user.clientId,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(400).json({ message: 'Invalid user data' });
-    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
 // @desc    Get user profile
-// @route   GET /api/users/profile
-// @access  Private
 export const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate('clientId', 'name company');
-
+    const user = await User.findById(req.user._id);
     if (user) {
       res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
-        client: user.clientId,
       });
     } else {
       res.status(404).json({ message: 'User not found' });
@@ -95,63 +69,36 @@ export const getUserProfile = async (req, res) => {
 };
 
 // @desc    Get all users
-// @route   GET /api/users
-// @access  Private/Admin
 export const getUsers = async (req, res) => {
   try {
-    if (mongoose.connection.readyState !== 1) throw new Error('DB Disconnected');
     const users = await User.find({}).select('-password').populate('clientId', 'name company');
     res.json(users);
   } catch (error) {
-    console.warn('Users Fallback (DB Offline):', error.message);
-    res.json([
-      { _id: '1', name: 'John Doe', email: 'john@example.com', role: 'user' },
-      { _id: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'user' },
-      { _id: '3', name: 'Admin User', email: 'admin@gmail.com', role: 'admin' }
-    ]);
+    res.status(500).json({ message: error.message });
   }
 };
+
 // @desc    Update user
-// @route   PUT /api/users/:id
-// @access  Private/Admin
 export const updateUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ message: 'User not found' });
-
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
-    user.role = req.body.role || user.role;
-    user.clientId = req.body.clientId || user.clientId;
-
-    if (req.body.password) {
-      user.password = req.body.password;
+    if (user) {
+      Object.assign(user, req.body);
+      const updatedUser = await user.save();
+      res.json(updatedUser);
+    } else {
+      res.status(404).json({ message: 'User not found' });
     }
-
-    const updatedUser = await user.save();
-    res.json({
-      _id: updatedUser._id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      role: updatedUser.role,
-      clientId: updatedUser.clientId,
-    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
 // @desc    Delete user
-// @route   DELETE /api/users/:id
-// @access  Private/Admin
 export const deleteUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
-    if (user) {
-      res.json({ message: 'User removed' });
-    } else {
-      res.status(404).json({ message: 'User not found' });
-    }
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: 'User removed' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

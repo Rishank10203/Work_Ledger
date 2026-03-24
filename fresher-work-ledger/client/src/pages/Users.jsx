@@ -19,6 +19,7 @@ export const Users = () => {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterRole, setFilterRole] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
 
@@ -109,10 +110,12 @@ export const Users = () => {
     }
   };
 
-  const filteredUsers = Array.isArray(users) ? users.filter(user => 
-    user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email?.toLowerCase().includes(searchTerm.toLowerCase())
-  ) : [];
+  const filteredUsers = Array.isArray(users) ? users.filter(user => {
+    const matchesSearch = user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         user.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRole = filterRole === 'all' || user.role?.toLowerCase() === filterRole.toLowerCase();
+    return matchesSearch && matchesRole;
+  }) : [];
 
   return (
     <div className="h-full flex flex-col gap-6">
@@ -139,10 +142,40 @@ export const Users = () => {
               className="w-full pl-11 pr-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-sm focus:ring-4 focus:ring-primary-500/10 focus:border-primary-500 outline-none transition-all"
             />
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest mr-1">Filter :</span>
-            <button onClick={() => setSearchTerm('admin')} className="px-4 py-1.5 rounded-xl text-[10px] font-black uppercase bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 hover:border-primary-500 hover:text-primary-500 transition-all shadow-sm">Admins</button>
-            <button onClick={() => setSearchTerm('client')} className="px-4 py-1.5 rounded-xl text-[10px] font-black uppercase bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 hover:border-primary-500 hover:text-primary-500 transition-all shadow-sm">Clients</button>
+            <button 
+              onClick={() => setFilterRole('all')} 
+              className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase transition-all shadow-sm border ${
+                filterRole === 'all' ? 'bg-primary-600 text-white border-primary-600' : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 text-gray-500'
+              }`}
+            >
+              All
+            </button>
+            <button 
+              onClick={() => setFilterRole('admin')} 
+              className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase transition-all shadow-sm border ${
+                filterRole === 'admin' ? 'bg-rose-600 text-white border-rose-600' : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 text-gray-500'
+              }`}
+            >
+              Admins
+            </button>
+            <button 
+              onClick={() => setFilterRole('user')} 
+              className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase transition-all shadow-sm border ${
+                filterRole === 'user' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 text-gray-500'
+              }`}
+            >
+              Users
+            </button>
+            <button 
+              onClick={() => setFilterRole('client')} 
+              className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase transition-all shadow-sm border ${
+                filterRole === 'client' ? 'bg-amber-600 text-white border-amber-600' : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 text-gray-500'
+              }`}
+            >
+              Clients
+            </button>
           </div>
         </div>
 

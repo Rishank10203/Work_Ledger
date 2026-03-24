@@ -16,7 +16,7 @@ export const Layout = () => {
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#f8fafc] dark:bg-gray-900 md:p-10 p-4">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#f8fafc] dark:bg-gray-900 md:p-6 p-4">
           <Outlet />
         </main>
       </div>

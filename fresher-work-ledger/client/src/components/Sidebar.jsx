@@ -58,7 +58,7 @@ export const Sidebar = () => {
         )}
       </AnimatePresence>
 
-      <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col transition-transform duration-300 md:relative md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} shadow-[20px_0_50px_-30px_rgba(0,0,0,0.05)]`}>
+      <aside className={`fixed inset-y-0 left-0 z-50 w-72 md:w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col transition-transform duration-300 md:relative md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} shadow-[20px_0_50_px-30px_rgba(0,0,0,0.05)]`}>
         <div className="h-24 flex items-center justify-between px-8 shrink-0">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 bg-gradient-to-br from-primary-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/20">
