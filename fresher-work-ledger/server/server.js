@@ -18,7 +18,10 @@ const app = express();
 const PORT = process.env.PORT || 5099;
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/fresher-ledger')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/fresher-ledger', {
+  serverSelectionTimeoutMS: 5000, // Fail fast if DB is offline
+  socketTimeoutMS: 45000,
+})
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => {
     console.error('MongoDB Connection Error:', err.message);
@@ -31,6 +34,18 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
+
+// Global Database Guard: Prevent requests from hanging if DB is offline
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState !== 1 && !req.path.startsWith('/api/health') && req.path !== '/') {
+    return res.status(503).json({ 
+      success: false,
+      message: 'Database is currently disconnected. Please starting your local MongoDB service or check connection string.',
+      status: 'offline'
+    });
+  }
+  next();
+});
 
 // API Routes
 app.use('/api/users', userRoutes);
