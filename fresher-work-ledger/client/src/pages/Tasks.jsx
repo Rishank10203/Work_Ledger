@@ -661,7 +661,7 @@ export const Tasks = () => {
                       {st.attachments.map(att => (
                         <a 
                           key={att._id}
-                          href={`http://localhost:5099${att.url}`} 
+                          href={`${import.meta.env.VITE_API_URL || ''}${att.url}`} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="flex items-center gap-1.5 px-2 py-1 bg-gray-50 dark:bg-gray-800/50 rounded-lg group/attach hover:bg-primary-50 transition-all border border-transparent hover:border-primary-100"
@@ -669,7 +669,7 @@ export const Tasks = () => {
                         >
                           {att.mimetype?.startsWith('image/') ? (
                             <div className="relative h-6 w-6 group-hover/attach:scale-110 transition-transform">
-                              <img src={`http://localhost:5099${att.url}`} className="h-full w-full rounded object-cover shadow-sm" alt={att.filename} />
+                              <img src={`${import.meta.env.VITE_API_URL || ''}${att.url}`} className="h-full w-full rounded object-cover shadow-sm" alt={att.filename} />
                             </div>
                           ) : (
                             <div className="p-1 text-gray-400 group-hover/attach:text-primary-500">
