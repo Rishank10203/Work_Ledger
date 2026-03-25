@@ -29,7 +29,7 @@ function App() {
           </Route>
         </Route>
         {/* Handle Render internal pathing & 404s */}
-        <Route path="/index.html" element={<Navigate to="/" replace />} />
+        {/* <Route path="/index.html" element={<Navigate to="/" replace />} /> */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
