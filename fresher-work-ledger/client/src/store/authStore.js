@@ -1,14 +1,22 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
+const API = import.meta.env.VITE_API_URL || 'http://localhost:5099';
+
 export const api = axios.create({
-  baseURL: (import.meta.env.VITE_API_URL || 'http://localhost:5099') + '/api',
+  baseURL: `${API}/api`,
   timeout: 10000,
 });
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
-  console.log(`[AUTH-BRIDGE] Attaching token to ${config.url}:`, token ? 'YES' : 'NO');
+  
+  // SYSTEMIC FIX for 404: Ensure URLs are relative to baseURL (.../api)
+  // If URL starts with / but not /api, remove the leading / to allow baseURL to append /api correctly
+  if (config.url && config.url.startsWith('/') && !config.url.startsWith('/api')) {
+    config.url = config.url.substring(1);
+  }
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
