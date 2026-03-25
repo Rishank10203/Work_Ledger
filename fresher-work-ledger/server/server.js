@@ -26,14 +26,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/fresher-l
   });
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173', 
-    'http://localhost:5174', 
-    'http://localhost:5175',
-    'https://work-ledger-two.vercel.app'
-  ],
+  origin: true,
   credentials: true
 }));
+app.options('*', cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
