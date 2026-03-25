@@ -4,17 +4,16 @@ import axios from 'axios';
 const API = import.meta.env.VITE_API_URL || 'http://localhost:5099';
 
 export const api = axios.create({
-  baseURL: `${API}/api`,
+  baseURL: API,
   timeout: 10000,
 });
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   
-  // SYSTEMIC FIX for 404: Ensure URLs are relative to baseURL (.../api)
-  // If URL starts with / but not /api, remove the leading / to allow baseURL to append /api correctly
-  if (config.url && config.url.startsWith('/') && !config.url.startsWith('/api')) {
-    config.url = config.url.substring(1);
+  // SYSTEMIC FIX for 404: Ensure all URLs are prefixed with /api
+  if (config.url && !config.url.startsWith('/api')) {
+    config.url = `/api${config.url.startsWith('/') ? '' : '/'}${config.url}`;
   }
 
   if (token) {
