@@ -4,6 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import connectDB from './config/db.js';
 
 // Route Imports
 import userRoutes from './routes/userRoutes.js';
@@ -17,16 +18,8 @@ import dashboardRoutes from './routes/dashboardRoutes.js';
 const app = express();
 const PORT = process.env.PORT || 5099;
 
-// Database Connection
-const dbUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/fresher-ledger';
-mongoose.connect(dbUri, {
-  serverSelectionTimeoutMS: 5000, 
-  socketTimeoutMS: 45000,
-})
-  .then(() => console.log('MongoDB Connected successfully.'))
-  .catch(err => {
-    console.error('MongoDB Connection Error:', err.message);
-  });
+// Initialize Database
+connectDB();
 
 app.use(cors({
   origin: true,
