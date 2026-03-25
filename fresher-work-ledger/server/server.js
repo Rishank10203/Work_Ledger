@@ -1,6 +1,6 @@
-import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
+import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
@@ -18,14 +18,14 @@ const app = express();
 const PORT = process.env.PORT || 5099;
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/fresher-ledger', {
-  serverSelectionTimeoutMS: 5000, // Fail fast if DB is offline
+const dbUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/fresher-ledger';
+mongoose.connect(dbUri, {
+  serverSelectionTimeoutMS: 5000, 
   socketTimeoutMS: 45000,
 })
-  .then(() => console.log('MongoDB Connected...'))
+  .then(() => console.log('MongoDB Connected successfully.'))
   .catch(err => {
     console.error('MongoDB Connection Error:', err.message);
-    console.log('TIP: Ensure your MongoDB service is running via services.msc');
   });
 
 app.use(cors({

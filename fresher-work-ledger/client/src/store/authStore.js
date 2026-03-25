@@ -32,8 +32,9 @@ api.interceptors.response.use(
       window.location.href = '/login';
     }
     
-    if (error.response?.status === 400) {
-      console.error('[AUTH-DIAGNOSTIC] 400 Bad Request Details:', error.response.data);
+    if (error.response?.status === 503) {
+      console.error('[DATABASE-GUARD] Backend reports DB is offline');
+      useAuthStore.getState().setDbOffline(true);
     }
     
     return Promise.reject(error);
@@ -64,6 +65,9 @@ export const useAuthStore = create((set) => ({
   token: localStorage.getItem('token') || null,
   isLoading: false,
   error: null,
+  isDbOffline: false,
+
+  setDbOffline: (status) => set({ isDbOffline: status }),
 
   login: async (email, password) => {
     set({ isLoading: true, error: null });
