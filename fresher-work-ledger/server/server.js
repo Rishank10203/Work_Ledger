@@ -69,8 +69,8 @@ app.use(notFound);
 // Serve static files from React build (Mono-repo deployment support)
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// Wildcard handler for React routes (Fixes 404 on refresh)
-app.get('*', (req, res) => {
+// Wildcard handler for React routes (Fixes 404 on refresh in Express 5)
+app.get(/.*/, (req, res) => {
   if (!req.path.startsWith('/api')) {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
   }
