@@ -51,10 +51,6 @@ app.use('/api/time', timeEntryRoutes);
 app.use('/api/subtasks', subTaskRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Work Ledger API is running');
-});
-
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
