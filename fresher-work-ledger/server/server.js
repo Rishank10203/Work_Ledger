@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
+import path from 'path';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
@@ -17,6 +18,7 @@ import dashboardRoutes from './routes/dashboardRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5099;
+const __dirname = path.resolve();
 
 // Initialize Database
 connectDB();
@@ -63,6 +65,16 @@ app.get('/api/health', (req, res) => {
 
 // Error handling
 app.use(notFound);
+
+// Serve static files from React build (Mono-repo deployment support)
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Wildcard handler for React routes (Fixes 404 on refresh)
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+  }
+});
 
 // Custom Error Handler
 app.use((err, req, res, next) => {
