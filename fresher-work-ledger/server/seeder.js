@@ -22,6 +22,7 @@ const seedAdmin = async () => {
       console.log('Creating Admin user...');
       await User.create({
         name: 'System Admin',
+        email: adminEmail, 
         password: adminPassword,
         role: 'admin' // LOWERCASE to match strict RBAC
       });
