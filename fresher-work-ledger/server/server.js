@@ -67,14 +67,6 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Serve static files from React build
-app.use(express.static(path.join(__dirname, "../client/dist")));
-
-// React wildcard — serve index.html for all non-API routes
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
-});
-
 // Error handling — MUST be last
 app.use(notFound);
 app.use(errorHandler);

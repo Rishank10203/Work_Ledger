@@ -3,6 +3,9 @@ dist
 build
 .env
 .env.*
+client/.env
+client/.env.production
+server/.env
 .npm
 uploads/
 .DS_Store
