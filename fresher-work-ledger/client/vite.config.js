@@ -9,7 +9,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:5099',
+        // target: 'http://127.0.0.1:5099',
+        target: 'https://work-ledger-2.onrender.com',
         changeOrigin: true,
         secure: false,
         ws: true,
