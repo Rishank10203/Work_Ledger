@@ -62,7 +62,7 @@ export const Dashboard = () => {
       <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-4">
         <StatCard title="Active Projects" value={stats.projects} icon={FolderKanban} colorClass="bg-blue-500 text-white shadow-lg shadow-blue-500/20" />
         <StatCard title="Tasks Pending" value={stats.tasks} icon={Briefcase} colorClass="bg-orange-500 text-white shadow-lg shadow-orange-500/20" />
-        <StatCard title="Hours (7d)" value={`${stats.totalHours || 0}h`} icon={Clock} colorClass="bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" />
+        <StatCard title="Hours (7d)" value={`${Number(stats.totalHours || 0).toFixed(2)}h`} icon={Clock} colorClass="bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" />
         <StatCard title="Team Members" value={stats.teamMembers || 0} icon={Users} colorClass="bg-violet-500 text-white shadow-lg shadow-violet-500/20" />
       </div>
 

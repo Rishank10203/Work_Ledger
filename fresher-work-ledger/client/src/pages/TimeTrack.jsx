@@ -320,7 +320,7 @@ export const TimeTrack = () => {
       </Modal>
 
       {/* Timer Card */}
-      <Card className="!p-0 border-transparent shadow-2xl overflow-hidden bg-white dark:bg-gray-800">
+      <Card className="!p-0 border-transparent shadow-2xl bg-white dark:bg-gray-800 relative z-10">
         <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-gray-100 dark:divide-gray-700">
           <div className="flex-1 p-6 space-y-5">
             <div className="space-y-1.5">
@@ -335,7 +335,7 @@ export const TimeTrack = () => {
               />
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <SearchableSelect 
                 label="Project"
                 options={projects.map(p => ({ value: p._id, label: p.name }))}
