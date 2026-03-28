@@ -290,7 +290,7 @@ export const Users = () => {
               placeholder="Select privilege..."
               error={errors.role?.message}
             />
-            {selectedRole === 'Client' && (
+            {selectedRole === 'client' && (
               <SearchableSelect 
                 label="Affiliated Organization"
                 options={clients.map(c => ({ value: c._id, label: c.company || c.name }))}
